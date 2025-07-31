@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ランダム名言メーカー</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2rem;
+      background-color: #f0f0f0;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    #quote {
+      margin: 2rem auto;
+      font-size: 1.5rem;
+      max-width: 600px;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+  </style>
+</head>
+<body>
+  <h1>ランダム名言メーカー</h1>
+  <div id="quote">名言がここに表示されます</div>
+  <button id="generateBtn">名言を表示</button>
+
+  <script>
+    const quotes = [
+      "成功する秘訣は、成功するまでやり続けることだ。",
+      "チャンスは準備された心にのみ訪れる。",
+      "失敗は成功のもと。",
+      "昨日よりも今日、今日よりも明日。",
+      "できるかできないかじゃない。やるかやらないかだ。",
+      "夢を語ろう。声に出すと現実が近づく。",
+      "挑戦を恐れるな、変化を楽しめ。",
+      "最も暗い夜もいつか明ける。"
+    ];
+
+    const quoteDiv = document.getElementById("quote");
+    const btn = document.getElementById("generateBtn");
+
+    btn.addEventListener("click", () => {
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      quoteDiv.textContent = quotes[randomIndex];
+    });
+  </script>
+</body>
+</html>
