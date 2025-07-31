@@ -47,14 +47,14 @@
 
   <script>
     const quotes = [
-      "成功する秘訣は、成功するまでやり続けることだ。",
-      "チャンスは準備された心にのみ訪れる。",
-      "失敗は成功のもと。",
-      "昨日よりも今日、今日よりも明日。",
-      "できるかできないかじゃない。やるかやらないかだ。",
-      "夢を語ろう。声に出すと現実が近づく。",
-      "挑戦を恐れるな、変化を楽しめ。",
-      "最も暗い夜もいつか明ける。"
+      { text: "成功する秘訣は、成功するまでやり続けることだ。", author: "不明" },
+      { text: "チャンスは準備された心にのみ訪れる。", author: "ルイ・パスツール" },
+      { text: "失敗は成功のもと。", author: "日本のことわざ" },
+      { text: "昨日よりも今日、今日よりも明日。", author: "自己啓発の言葉" },
+      { text: "できるかできないかじゃない。やるかやらないかだ。", author: "ナイキの広告" },
+      { text: "夢を語ろう。声に出すと現実が近づく。", author: "自己啓発本" },
+      { text: "挑戦を恐れるな、変化を楽しめ。", author: "変化を愛する人々" },
+      { text: "最も暗い夜もいつか明ける。", author: "マーティン・ルーサー・キングJr." }
     ];
 
     const quoteDiv = document.getElementById("quote");
@@ -62,7 +62,12 @@
 
     btn.addEventListener("click", () => {
       const randomIndex = Math.floor(Math.random() * quotes.length);
-      quoteDiv.textContent = quotes[randomIndex];
+      const quote = quotes[randomIndex];
+
+      quoteDiv.innerHTML = `
+        <p>"${quote.text}"</p>
+        <p><em>ー ${quote.author}</em></p>
+      `;
     });
   </script>
 </body>
