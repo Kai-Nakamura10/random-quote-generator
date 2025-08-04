@@ -23,27 +23,24 @@ const colors = [
     "#e0f7fa"  // シアン
 ];
 
+
 const quoteDiv = document.getElementById("quote");
 const btn = document.getElementById("generateBtn");
+const favoriteBtn = document.getElementById("favoriteBtn");
+const favoritesList = document.getElementById("favoritesList");
 
-btn.addEventListener("click", () => {
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    const quote = quotes[randomIndex];
+let currentQuote = null;
 
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    document.body.style.backgroundColor = randomColor;
-
+function showQuote(quote) {
+    currentQuote = quote;
     quoteDiv.classList.remove("fade-in");
-
     quoteDiv.innerHTML = `
         <p>"${quote.text}"</p>
         <p><em>ー ${quote.author}</em></p>
       `;
-
     setTimeout(() => {
         quoteDiv.classList.add("fade-in");
     }, 10);
-
     // 音声読み上げ機能
     if ('speechSynthesis' in window) {
         const utter = new SpeechSynthesisUtterance(`${quote.text}。${quote.author}`);
@@ -51,4 +48,46 @@ btn.addEventListener("click", () => {
         window.speechSynthesis.cancel(); // 前の読み上げを止める
         window.speechSynthesis.speak(utter);
     }
+}
+
+btn.addEventListener("click", () => {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    const quote = quotes[randomIndex];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    document.body.style.backgroundColor = randomColor;
+    showQuote(quote);
 });
+
+// お気に入り保存
+favoriteBtn.addEventListener("click", () => {
+    if (!currentQuote) return;
+    let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    // 重複チェック
+    if (!favorites.some(f => f.text === currentQuote.text && f.author === currentQuote.author)) {
+        favorites.push(currentQuote);
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+        renderFavorites();
+    }
+});
+
+function renderFavorites() {
+    let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    favoritesList.innerHTML = "";
+    favorites.forEach((fav, idx) => {
+        const li = document.createElement("li");
+        li.innerHTML = `"${fav.text}" <em>ー ${fav.author}</em> <button data-idx="${idx}">削除</button>`;
+        favoritesList.appendChild(li);
+    });
+    // 削除ボタン
+    Array.from(favoritesList.querySelectorAll("button")).forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+            favorites.splice(btn.dataset.idx, 1);
+            localStorage.setItem("favorites", JSON.stringify(favorites));
+            renderFavorites();
+        });
+    });
+}
+
+// 初期表示
+renderFavorites();
