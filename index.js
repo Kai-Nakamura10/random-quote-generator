@@ -43,4 +43,12 @@ btn.addEventListener("click", () => {
     setTimeout(() => {
         quoteDiv.classList.add("fade-in");
     }, 10);
+
+    // 音声読み上げ機能
+    if ('speechSynthesis' in window) {
+        const utter = new SpeechSynthesisUtterance(`${quote.text}。${quote.author}`);
+        utter.lang = 'ja-JP';
+        window.speechSynthesis.cancel(); // 前の読み上げを止める
+        window.speechSynthesis.speak(utter);
+    }
 });
