@@ -76,3 +76,8 @@ function string (a,b) {
   return a + " " + b;
 }
 console.log(string("big", "boy"));
+
+const math2 = (a,b) => {
+  return a + b;
+};
+console.log(math(2,2));
