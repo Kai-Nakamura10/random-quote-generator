@@ -59,3 +59,20 @@ window.addEventListener("DOMContentLoaded", aiuy);
 // イベントリスナー
 cgi.addEventListener("click", showQuote);
 hyu.addEventListener("click", save);
+
+
+let coi = 100;
+console.log(coi);
+let n = coi + 100;
+console.log(n);
+n = 300;
+console.log(n);
+function math (a,b) {
+  return a + b;
+}
+console.log(math(8,9));
+
+function string (a,b) {
+  return a + " " + b;
+}
+console.log(string("big", "boy"));
